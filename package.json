@@ -1,0 +1,13 @@
+{
+  "name": "cassiopea-oracle",
+  "version": "1.0.0",
+  "description": "util for public oracle",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cassiopea-ton/cassiopeia-oracle.git"
+  },
+  "dependencies": {
+    "ton-client-node-js": "^0.21.0"
+  }
+}
