@@ -1,0 +1,7 @@
+#!/usr/bin/fift -s
+"TonUtil.fif" include
+1 :$1..n
+$1 "new-wallet" replace-if-null =: file-base
+
+file-base +".pk" load-generate-keypair
+256 B>u@  x. 256 B>u@  x. cr

@@ -2,9 +2,10 @@
 "TonUtil.fif" include
 "Asm.fif" include
 
-"build/register-oracle"  constant savefile
+"build/withdraw"  constant savefile
+$1 $>GR =: amount
 
-<b 0xaaeeee 32 u, 0 64 u, b> 
+<b 0xeeaaee 32 u, 0 64 u, amount Gram, b> 
 
 2 boc+>B 
 savefile +".boc" tuck B>file
