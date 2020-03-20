@@ -1,11 +1,7 @@
 {
-    "wallet": "wallet",
-    "keys": {
-        "secret": "77b1f6a017a4c25350967dcd6fbccc26be5bfad030c348549baaefb6d08539b0",
-        "public": "6572924571a2e2db99d3e00ef6aa4a7d52066036b24bb0ce782b7e58ff4814d3"
-    },
-    "urls": [],
-    "timeout": -1,
-    "network": "https://testnet.ton.dev",
-    "register": "kf8YzUcHNBGVjwkwE-sJZ19gOtQWNb2vwBsgg5FrT7iA88it"
+  "wallet": "build/wallet",
+  "urls": [],
+  "timeout": -1,
+  "register": "kf8YzUcHNBGVjwkwE-sJZ19gOtQWNb2vwBsgg5FrT7iA88it",
+  "fee": 0.2
 }
