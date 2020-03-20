@@ -8,6 +8,8 @@
     "url": "git+https://github.com/cassiopea-ton/cassiopeia-oracle.git"
   },
   "dependencies": {
+    "base64url": "^3.0.1",
+    "commander": "^5.0.0",
     "ton-client-node-js": "^0.21.0"
   }
 }
