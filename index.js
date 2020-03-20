@@ -100,7 +100,8 @@ async function main() {
       client.syncClient();
       client.sign(
         config.register,
-        LiteClient.toGram(client.getParam(config.register, "getstake")),
+        LiteClient.toGram(client.getParam(config.register, "getstake")) +
+          config.fee,
         "build/register-oracle"
       );
       client.broadcast();
@@ -120,7 +121,8 @@ async function main() {
       client.syncClient();
       client.sign(
         config.register,
-        LiteClient.toGram(client.getParam(config.register, "getstake") * 100),
+        LiteClient.toGram(client.getParam(config.register, "getstake") * 100) +
+          config.fee,
         "build/register-provider"
       );
       client.broadcast();
