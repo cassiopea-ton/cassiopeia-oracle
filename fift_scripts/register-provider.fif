@@ -2,14 +2,14 @@
 "TonUtil.fif" include
 "Asm.fif" include
 
+true constant bounce
 "build/register-provider"  constant savefile
 4 :$1..n
 $1  =: url-str
-$2 "50" replace-if-null parse-int =: price_per_call
-$3 "0" replace-if-null parse-int =: t
-$4 "./build/new-provider" replace-if-null  =: provider-source
+$2 bounce parse-load-address =: bounce 2=: p_addr
+$3 "50" replace-if-null parse-int =: price_per_call
+$4 "0" replace-if-null parse-int =: t
 
-provider-source +".addr" load-address 2constant p_addr
 
 
 <b 0xbbeeee 32 u, 0 64 u, t 8 u, <b url-str $, b> ref, p_addr addr, price_per_call 32 i, b> 

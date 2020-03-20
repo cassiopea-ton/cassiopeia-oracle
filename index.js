@@ -92,16 +92,34 @@ async function main() {
     });
 
   program
-    .command("register")
+    .command("register_oracle")
     .description("register oracle")
     .action(() => {
       client.execFift("fift_scripts/register-oracle");
       client.syncClient();
       client.sign(
         config.register,
-        LiteClient.toGram(client.getParam(config.register, "getstake")) +
-          config.fee,
+        LiteClient.toGram(client.getParam(config.register, "getstake")),
         "build/register-oracle"
+      );
+      client.broadcast();
+    });
+
+  program
+    .command("register_provider <url> <addr> <price> <type> ")
+    .description("register provider")
+    .action((url, addr, price, type) => {
+      client.execFift("fift_scripts/register-provider", [
+        url,
+        addr,
+        price,
+        type
+      ]);
+      client.syncClient();
+      client.sign(
+        config.register,
+        LiteClient.toGram(client.getParam(config.register, "getstake") * 100),
+        "build/register-provider"
       );
       client.broadcast();
     });
