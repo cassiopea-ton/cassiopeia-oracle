@@ -1,11 +1,12 @@
 const commander = require("commander");
-const { TONClient } = require("ton-client-node-js");
 const fs = require("fs");
 const execSync = require("child_process").execSync;
+const axios = require("axios");
 
 class DataRequester {
-  static getData(url) {
-    return "1";
+  static async getData(url) {
+    let data = await axios.get(`https://${url}`);
+    return data.data.last;
   }
 }
 class LiteClient {
@@ -122,21 +123,20 @@ async function main() {
   program
     .command("send <url> [type]")
     .description("send at once")
-    .action((url, type = "0") => {
-      let data = DataRequester.getData(url);
+    .action(async (url, type = "0") => {
+      let data = parseInt(await DataRequester.getData(url));
       client.execFift("fift_scripts/send-int-data", [url, data, type]);
       client.syncClient();
       client.sign(config.register, config.fee, "build/send-int-data");
-      console.log(client.broadcast());
+      client.broadcast();
     });
 
-  program.parse(process.argv);
+  await program.parseAsync(process.argv);
 }
 
 (async () => {
   try {
     await main();
-    process.exit(0);
   } catch (error) {
     console.error(error);
   }
