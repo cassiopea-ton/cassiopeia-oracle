@@ -79,7 +79,9 @@ async function main() {
     .command("withdraw <amount>")
     .description("withdraw profit")
     .action(amount => {
-      console.log("withdraw command called");
+      client.execFift("fift_scripts/withdraw", [amount]);
+      client.syncClient();
+      client.sign(config.register, config.fee, "build/withdraw");
     });
 
   program
