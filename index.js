@@ -3,6 +3,11 @@ const { TONClient } = require("ton-client-node-js");
 const fs = require("fs");
 const execSync = require("child_process").execSync;
 
+class DataRequester {
+  static getData(url) {
+    return "1";
+  }
+}
 class LiteClient {
   constructor(
     liteClientPath = "lite-client/lite-client",
@@ -43,7 +48,7 @@ class LiteClient {
     ).toString();
   }
 
-  broadcast(filePath) {
+  broadcast(filePath = "build/wallet-query") {
     return execSync(
       `${this.liteClientPath} -v 0 -C ${this.configPath} -l /dev/null -c 'sendfile ${filePath}.boc'`
     ).toString();
@@ -82,6 +87,7 @@ async function main() {
       client.execFift("fift_scripts/withdraw", [amount]);
       client.syncClient();
       client.sign(config.register, config.fee, "build/withdraw");
+      client.broadcast();
     });
 
   program
@@ -96,6 +102,7 @@ async function main() {
           config.fee,
         "build/register-oracle"
       );
+      client.broadcast();
     });
 
   program
@@ -113,10 +120,14 @@ async function main() {
     });
 
   program
-    .command("send <url>")
+    .command("send <url> [type]")
     .description("send at once")
-    .action(amount => {
-      console.log("send command called");
+    .action((url, type = "0") => {
+      let data = DataRequester.getData(url);
+      client.execFift("fift_scripts/send-int-data", [url, data, type]);
+      client.syncClient();
+      client.sign(config.register, config.fee, "build/send-int-data");
+      console.log(client.broadcast());
     });
 
   program.parse(process.argv);
