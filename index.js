@@ -89,6 +89,7 @@ async function main() {
       client.syncClient();
       client.sign(config.register, config.fee, "build/withdraw");
       client.broadcast();
+      console.log(`${amount} nanograms withdrawn`);
     });
 
   program
@@ -103,6 +104,7 @@ async function main() {
         "build/register-oracle"
       );
       client.broadcast();
+      console.log(`oracle registered`);
     });
 
   program
@@ -122,6 +124,7 @@ async function main() {
         "build/register-provider"
       );
       client.broadcast();
+      console.log(`provider registered`);
     });
 
   program
@@ -147,6 +150,7 @@ async function main() {
       client.syncClient();
       client.sign(config.register, config.fee, "build/send-int-data");
       client.broadcast();
+      console.log("data sent");
     });
 
   await program.parseAsync(process.argv);
