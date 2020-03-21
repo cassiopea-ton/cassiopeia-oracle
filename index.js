@@ -155,6 +155,17 @@ async function main() {
       console.log("data sent");
     });
 
+  program
+    .command("request <url> <receiver>")
+    .description("request at once")
+    .action(async (url, receiver) => {
+      client.execFift("fift_scripts/request-data", [url, receiver]);
+      client.syncClient();
+      client.sign(config.register, 0.000005, "build/request-data");
+      client.broadcast();
+      console.log("data requested");
+    });
+
   await program.parseAsync(process.argv);
 }
 
